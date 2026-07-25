@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -6,15 +6,28 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Services from './components/services';
 import Portfolio from './components/Portfolio';
-import CvPage from './pages/CvPage';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import AdminLogin from './pages/AdminLogin';
-import Dashboard from './pages/Dashboard';
-import ReplyThread from './pages/ReplyThread';
 import ProtectedRoute from './components/ProtectedRoute';
 import { trackPageView, trackVisit } from './lib/analytics';
+
+// Routes non critiques pour le premier chargement : elles sortent du bundle
+// principal et ne sont téléchargées que si le visiteur les demande vraiment.
+const CvPage = lazy(() => import('./pages/CvPage'));
+const AdminLogin = lazy(() => import('./pages/AdminLogin'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const ReplyThread = lazy(() => import('./pages/ReplyThread'));
+
+// Fallback neutre pendant le téléchargement du chunk : évite un flash
+// de contenu blanc trop brut, sans dépendre d'assets supplémentaires.
+function RouteFallback() {
+  return (
+    <div className="min-h-screen w-full bg-white flex items-center justify-center">
+      <div className="w-8 h-8 border-2 border-black/10 border-t-[#C59B27] rounded-full animate-spin" />
+    </div>
+  );
+}
 
 function Home() {
   const location = useLocation();
@@ -71,14 +84,37 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/cv" element={<CvRoute />} />
-      <Route path="/reply/:messageId" element={<ReplyThread />} />
-      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route
+        path="/cv"
+        element={
+          <Suspense fallback={<RouteFallback />}>
+            <CvRoute />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/reply/:messageId"
+        element={
+          <Suspense fallback={<RouteFallback />}>
+            <ReplyThread />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/admin/login"
+        element={
+          <Suspense fallback={<RouteFallback />}>
+            <AdminLogin />
+          </Suspense>
+        }
+      />
       <Route
         path="/admin"
         element={
           <ProtectedRoute>
-            <Dashboard />
+            <Suspense fallback={<RouteFallback />}>
+              <Dashboard />
+            </Suspense>
           </ProtectedRoute>
         }
       />

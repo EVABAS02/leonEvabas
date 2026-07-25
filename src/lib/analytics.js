@@ -1,53 +1,88 @@
 import { app, db } from '../firebase';
-import { getAnalytics, logEvent, isSupported } from 'firebase/analytics';
-import { doc, increment, updateDoc, setDoc } from 'firebase/firestore';
 
 let analyticsInstance = null;
-const analyticsReady = isSupported().then((supported) => {
-  if (supported) analyticsInstance = getAnalytics(app);
-  return supported;
-});
+let analyticsReadyPromise = null;
+
+// Le SDK Analytics n'est chargé qu'au premier appel, pas au chargement du module.
+function getAnalyticsReady() {
+  if (!analyticsReadyPromise) {
+    analyticsReadyPromise = import('firebase/analytics').then(({ getAnalytics, isSupported }) =>
+      isSupported().then((supported) => {
+        if (supported) analyticsInstance = getAnalytics(app);
+        return { supported };
+      })
+    );
+  }
+  return analyticsReadyPromise;
+}
 
 export async function trackPageView(path) {
-  await analyticsReady;
-  if (analyticsInstance) {
-    logEvent(analyticsInstance, 'page_view', { page_path: path });
-  }
+  const { supported } = await getAnalyticsReady();
+  if (!supported || !analyticsInstance) return;
+  const { logEvent } = await import('firebase/analytics');
+  logEvent(analyticsInstance, 'page_view', { page_path: path });
 }
 
 function todayKey() {
   return new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
 }
 
+// Planifie l'exécution pendant un temps mort du thread principal,
+// pour ne jamais entrer en concurrence avec le rendu (FCP/LCP).
+function scheduleIdle(fn) {
+  if (typeof window === 'undefined') return;
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(fn, { timeout: 2000 });
+  } else {
+    setTimeout(fn, 300);
+  }
+}
+
 // À appeler sur CHAQUE page publique visitée (Home, /cv...).
 // Incrémente : le détail du jour (stats_daily) + le compteur global all-time (stats/global).
 // "unique" ne compte qu'une fois par session navigateur (sessionStorage), "visits" à chaque chargement.
-export async function trackVisit() {
+//
+// Différences avec la version précédente :
+// - ne bloque plus le rendu initial (exécution différée via requestIdleCallback)
+// - une seule transaction réseau (writeBatch) au lieu de deux appels séquentiels
+// - setDoc/merge pour le doc global aussi : si "stats/global" n'existe pas encore,
+//   ça ne casse plus (l'ancien updateDoc levait une erreur silencieuse dans ce cas)
+// - le SDK firestore n'est importé qu'au moment de l'appel, pas au chargement de la page
+export function trackVisit() {
   if (typeof window === 'undefined') return;
-  const isNewSession = !sessionStorage.getItem('evabas_session');
-  if (isNewSession) sessionStorage.setItem('evabas_session', '1');
 
-  const dailyRef = doc(db, 'stats_daily', todayKey());
-  const globalRef = doc(db, 'stats', 'global');
+  scheduleIdle(async () => {
+    try {
+      const { doc, increment, writeBatch } = await import('firebase/firestore');
 
-  try {
-    await setDoc(
-      dailyRef,
-      {
-        visits: increment(1),
-        uniqueVisitors: increment(isNewSession ? 1 : 0)
-      },
-      { merge: true }
-    );
-  } catch (err) {
-    console.warn('Compteur journalier indisponible :', err.message);
-  }
+      const isNewSession = !sessionStorage.getItem('evabas_session');
+      if (isNewSession) sessionStorage.setItem('evabas_session', '1');
 
-  try {
-    const updates = { totalVisits: increment(1) };
-    if (isNewSession) updates.total = increment(1);
-    await updateDoc(globalRef, updates);
-  } catch (err) {
-    console.warn('Compteur global indisponible :', err.message);
-  }
+      const batch = writeBatch(db);
+
+      batch.set(
+        doc(db, 'stats_daily', todayKey()),
+        {
+          visits: increment(1),
+          uniqueVisitors: increment(isNewSession ? 1 : 0)
+        },
+        { merge: true }
+      );
+
+      batch.set(
+        doc(db, 'stats', 'global'),
+        {
+          totalVisits: increment(1),
+          ...(isNewSession ? { total: increment(1) } : {})
+        },
+        { merge: true }
+      );
+
+      await batch.commit();
+    } catch (err) {
+      if (import.meta.env.DEV) {
+        console.warn('Compteur de visites indisponible :', err?.message);
+      }
+    }
+  });
 }

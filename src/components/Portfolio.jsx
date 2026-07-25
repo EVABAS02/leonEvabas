@@ -4,9 +4,9 @@ import { useLanguage } from '../context/LanguageContext';
 // Images et liens ne sont pas des textes à traduire : ils restent ici,
 // mappés par index sur les projets définis dans translations.js (même ordre : Moravi, Evabas Proforma, Biscotino).
 const PROJECT_MEDIA = [
-  { image: "/images/moravi-web.png", link: "https://moravi-sarl.vercel.app/" },
-  { image: "/images/evabas-proforma.png", link: "https://evabas-proforma-gamma.vercel.app/" },
-  { image: "/images/biscotino-web.png", link: "https://biscotino-web.vercel.app/" }
+  { image: "/images/moravi-web.webp", link: "https://moravi-sarl.vercel.app/" },
+  { image: "/images/evabas-proforma.webp", link: "https://evabas-proforma-gamma.vercel.app/" },
+  { image: "/images/biscotino-web.webp", link: "https://biscotino-web.vercel.app/" }
 ];
 
 export default function Portfolio() {
@@ -83,6 +83,7 @@ export default function Portfolio() {
                   href={project.link} 
                   target="_blank" 
                   rel="noopener noreferrer"
+                  aria-label={`${portfolioData?.view_project} — ${project.title}`}
                   className="inline-flex items-center gap-1.5 text-xs font-mono font-bold tracking-wider uppercase text-black hover:text-[#D4AF37] transition-colors"
                 >
                   <span>{portfolioData?.view_project}</span>

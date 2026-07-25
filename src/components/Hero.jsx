@@ -91,8 +91,10 @@ export default function Hero() {
             
             <div className="relative">
               <img
-                src="/images/leon.png"
+                src="/images/leon.webp"
                 alt="Léon EVABAS - Designer & Développeur"
+                 width="380"
+                 height="475"
                 className="w-full h-auto object-contain select-none"
               />
               {/* Dégradé bas fluide */}
