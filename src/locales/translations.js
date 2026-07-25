@@ -37,7 +37,7 @@ export const translations = {
     },
     skills: {
       tag: "COMPÉTENCES & EXPERTISES",
-      title: "Du wireframe au déploiement — tout l'atelier en un.",
+      title: "Du wireframe au déploiement , tout l'atelier en un.",
       categories: [
         {
           name: "DESIGN UI/UX",
@@ -286,7 +286,7 @@ export const translations = {
     },
     skills: {
       tag: "SKILLS & EXPERTISE",
-      title: "From wireframe to deployment — the whole studio in one.",
+      title: "From wireframe to deployment , the whole studio in one.",
       categories: [
         {
           name: "UI/UX DESIGN",

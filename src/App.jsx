@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
-import Services from './components/Services';
+import Services from './components/services';
 import Portfolio from './components/Portfolio';
 import CvPage from './pages/CvPage';
 import FAQ from './components/FAQ';
