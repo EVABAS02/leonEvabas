@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #ffffff;
+  --color-teal: #0D6E6E;
+  --color-teal-hover: #0A5858;
+  --color-gold: #C59B27;
+  --color-charcoal: #000000; /* Noir pur */
+  --color-night: #000000;
+}
+
+body {
+  background-color: #ffffff;
+  color: #000000; /* Textes en noir pur par défaut */
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-33.333%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
