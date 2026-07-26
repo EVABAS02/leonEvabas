@@ -27,10 +27,19 @@ if (import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
 }
 
 // NOTE : Firestore (db) et Auth (auth) ne sont PLUS initialisés ici.
-// Ils vivent dans firebase-admin.js, importé uniquement par les pages qui
-// en ont vraiment besoin (Dashboard, AdminLogin, ReplyThread) — toutes déjà
-// lazy-loadées. Ça évite de charger ~150 Ko de SDK Firestore/Auth pour un
-// visiteur qui ne fait que consulter la page d'accueil.
-// Pour le formulaire de contact public (Contact.jsx), qui a besoin d'écrire
-// UN document Firestore au moment du submit, on importe dynamiquement
-// firebase-admin.js à ce moment précis plutôt qu'au chargement de la page.
+// Ils vivent dans firebase-admin.js.
+//
+// DÉCISION D'ARCHITECTURE (26/07/2026) : Portfolio.jsx et CvPage.jsx importent
+// firebase-admin.js de façon STATIQUE et EAGER, y compris Portfolio.jsx qui est
+// rendu sur la page d'accueil. C'est volontaire : le dashboard admin (Gérer les
+// projets / Mon CV) doit piloter en direct le contenu public du site — un projet
+// ajouté depuis /admin doit apparaître immédiatement sur la page d'accueil, sans
+// édition manuelle de translations.js. Le compromis assumé : le bundle initial
+// de la page d'accueil inclut le SDK Firestore (quelques centaines de Ko de plus).
+// Ne pas "corriger" cet import vers une forme dynamique sans en discuter d'abord —
+// ça casserait l'affichage des projets/CV gérés depuis le dashboard.
+//
+// Le formulaire de contact public (Contact.jsx) et les compteurs de visites
+// (analytics.js), eux, continuent d'importer firebase-admin.js dynamiquement,
+// puisqu'ils n'ont besoin d'écrire qu'au moment d'une action utilisateur
+// (submit du formulaire), pas au chargement de la page.
