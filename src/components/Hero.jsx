@@ -21,7 +21,7 @@ export default function Hero() {
           {/* TITRE PRINCIPAL H1 */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-black leading-[1.12] tracking-tight mb-6">
             {heroData?.title} <br />
-            <span className="text-gold italic font-serif font-normal">
+            <span className="text-gold-dark italic font-serif font-normal">
               {heroData?.title_highlight}
             </span>
           </h1>

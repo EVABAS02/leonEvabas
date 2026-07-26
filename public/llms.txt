@@ -1,0 +1,14 @@
+# Léon EVABAS — Designer & Développeur Web/Mobile
+
+> Portfolio professionnel de Léon EVABAS : UI/UX design, développement web (React, Next.js) et mobile, no-code et automatisation.
+
+Léon EVABAS conçoit et développe des interfaces et des sites web pour des PME et indépendants, avec une approche qui combine design, code et automatisation.
+
+## Pages
+
+- [Accueil](https://leon-evabas.vercel.app/) : présentation, compétences, services et portfolio de projets.
+- [CV](https://leon-evabas.vercel.app/cv) : parcours, expériences et formations.
+
+## Contact
+
+- Formulaire de contact disponible sur la page d'accueil, section "Contact".

@@ -1,6 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 
 // Toutes les valeurs viennent maintenant de ton fichier .env (jamais commité sur Git).
@@ -28,5 +26,11 @@ if (import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
   });
 }
 
-export const db = getFirestore(app);
-export const auth = getAuth(app);
+// NOTE : Firestore (db) et Auth (auth) ne sont PLUS initialisés ici.
+// Ils vivent dans firebase-admin.js, importé uniquement par les pages qui
+// en ont vraiment besoin (Dashboard, AdminLogin, ReplyThread) — toutes déjà
+// lazy-loadées. Ça évite de charger ~150 Ko de SDK Firestore/Auth pour un
+// visiteur qui ne fait que consulter la page d'accueil.
+// Pour le formulaire de contact public (Contact.jsx), qui a besoin d'écrire
+// UN document Firestore au moment du submit, on importe dynamiquement
+// firebase-admin.js à ce moment précis plutôt qu'au chargement de la page.

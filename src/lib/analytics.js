@@ -1,4 +1,4 @@
-import { app, db } from '../firebase';
+import { app } from '../firebase';
 
 let analyticsInstance = null;
 let analyticsReadyPromise = null;
@@ -41,19 +41,15 @@ function scheduleIdle(fn) {
 // À appeler sur CHAQUE page publique visitée (Home, /cv...).
 // Incrémente : le détail du jour (stats_daily) + le compteur global all-time (stats/global).
 // "unique" ne compte qu'une fois par session navigateur (sessionStorage), "visits" à chaque chargement.
-//
-// Différences avec la version précédente :
-// - ne bloque plus le rendu initial (exécution différée via requestIdleCallback)
-// - une seule transaction réseau (writeBatch) au lieu de deux appels séquentiels
-// - setDoc/merge pour le doc global aussi : si "stats/global" n'existe pas encore,
-//   ça ne casse plus (l'ancien updateDoc levait une erreur silencieuse dans ce cas)
-// - le SDK firestore n'est importé qu'au moment de l'appel, pas au chargement de la page
 export function trackVisit() {
   if (typeof window === 'undefined') return;
 
   scheduleIdle(async () => {
     try {
-      const { doc, increment, writeBatch } = await import('firebase/firestore');
+      const [{ db }, { doc, increment, writeBatch }] = await Promise.all([
+        import('../firebase-admin'),
+        import('firebase/firestore')
+      ]);
 
       const isNewSession = !sessionStorage.getItem('evabas_session');
       if (isNewSession) sessionStorage.setItem('evabas_session', '1');

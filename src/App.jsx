@@ -9,15 +9,15 @@ import Portfolio from './components/Portfolio';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import ProtectedRoute from './components/ProtectedRoute';
 import { trackPageView, trackVisit } from './lib/analytics';
 
 // Routes non critiques pour le premier chargement : elles sortent du bundle
 // principal et ne sont téléchargées que si le visiteur les demande vraiment.
 const CvPage = lazy(() => import('./pages/CvPage'));
-const AdminLogin = lazy(() => import('./pages/AdminLogin'));
-const Dashboard = lazy(() => import('./pages/Dashboard'));
 const ReplyThread = lazy(() => import('./pages/ReplyThread'));
+// AdminArea regroupe AuthProvider + AdminLogin + Dashboard : tout Firebase Auth
+// (et son iframe de persistance) ne se charge que pour /admin/*.
+const AdminArea = lazy(() => import('./pages/AdminArea'));
 
 // Fallback neutre pendant le téléchargement du chunk : évite un flash
 // de contenu blanc trop brut, sans dépendre d'assets supplémentaires.
@@ -101,21 +101,11 @@ function App() {
         }
       />
       <Route
-        path="/admin/login"
+        path="/admin/*"
         element={
           <Suspense fallback={<RouteFallback />}>
-            <AdminLogin />
+            <AdminArea />
           </Suspense>
-        }
-      />
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute>
-            <Suspense fallback={<RouteFallback />}>
-              <Dashboard />
-            </Suspense>
-          </ProtectedRoute>
         }
       />
     </Routes>

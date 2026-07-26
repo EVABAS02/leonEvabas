@@ -56,7 +56,7 @@ export default function Navbar() {
               onClick={() => setLang('fr')}
               className={`px-3 py-1 rounded-full transition-all duration-200 ${
                 lang === 'fr'
-                  ? 'bg-gold text-white font-bold shadow-sm'
+                  ? 'bg-gold-dark text-white font-bold shadow-sm'
                   : 'text-black hover:text-black/70'
               }`}
             >
@@ -66,7 +66,7 @@ export default function Navbar() {
               onClick={() => setLang('en')}
               className={`px-3 py-1 rounded-full transition-all duration-200 ${
                 lang === 'en'
-                  ? 'bg-gold text-white font-bold shadow-sm'
+                  ? 'bg-gold-dark text-white font-bold shadow-sm'
                   : 'text-black hover:text-black/70'
               }`}
             >
@@ -89,13 +89,13 @@ export default function Navbar() {
           <div className="flex items-center border border-black/10 rounded-full p-0.5 bg-white/60 font-mono text-[10px] mr-1">
             <button
               onClick={() => setLang('fr')}
-              className={`px-2 py-0.5 rounded-full ${lang === 'fr' ? 'bg-gold text-white font-bold' : 'text-black'}`}
+              className={`px-2 py-0.5 rounded-full ${lang === 'fr' ? 'bg-gold-dark text-white font-bold' : 'text-black'}`}
             >
               FR
             </button>
             <button
               onClick={() => setLang('en')}
-              className={`px-2 py-0.5 rounded-full ${lang === 'en' ? 'bg-gold text-white font-bold' : 'text-black'}`}
+              className={`px-2 py-0.5 rounded-full ${lang === 'en' ? 'bg-gold-dark text-white font-bold' : 'text-black'}`}
             >
               EN
             </button>

@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { db } from '../firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function Contact() {
   const { tObj } = useLanguage();
@@ -52,12 +50,21 @@ export default function Contact() {
       subject: formData.get('subject') || '',
       budget: formData.get('budget') || '',
       message: formData.get('message') || '',
-      status: 'new', // 'new' | 'read' | 'replied'
-      createdAt: serverTimestamp()
+      status: 'new' // 'new' | 'read' | 'replied'
     };
 
     try {
-      await addDoc(collection(db, 'messages'), payload);
+      // Import différé : firebase-admin.js (Firestore) ne se télécharge
+      // qu'au moment où le visiteur envoie réellement le formulaire —
+      // jamais au chargement de la page.
+      const [{ db }, { collection, addDoc, serverTimestamp }] = await Promise.all([
+        import('../firebase-admin'),
+        import('firebase/firestore')
+      ]);
+      await addDoc(collection(db, 'messages'), {
+        ...payload,
+        createdAt: serverTimestamp()
+      });
       setFormStatus(true);
     } catch (err) {
       console.error('Erreur envoi message Firestore :', err);
@@ -155,10 +162,11 @@ export default function Contact() {
 
                 {/* Budget Estimé */}
                 <div className="space-y-2">
-                  <label className="block text-xs font-mono font-bold tracking-widest text-black/60 uppercase">
+                  <label htmlFor="budget" className="block text-xs font-mono font-bold tracking-widest text-black/60 uppercase">
                     {contactData?.budget_label}
                   </label>
                   <select
+                    id="budget"
                     name="budget"
                     className="w-full px-4 py-3.5 rounded-xl bg-black/[0.02] border border-black/15 text-black text-sm focus:outline-none focus:border-[#D4AF37] transition-colors"
                   >
@@ -204,10 +212,10 @@ export default function Contact() {
 
         {/* CARTES DE CONTACT DIRECT */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-
+                 
           {/* Email */}
-          <a
-            href="mailto:leon@evabas.dev"
+          
+           <a href="mailto:leon@evabas.dev"
             className="flex items-center justify-between p-5 rounded-2xl bg-white border border-black/15 hover:border-[#D4AF37] transition-all group shadow-sm"
           >
             <div className="space-y-1">
@@ -220,8 +228,8 @@ export default function Contact() {
           </a>
 
           {/* WhatsApp */}
-          <a
-            href="https://wa.me/22961406443"
+          
+           <a href="https://wa.me/22961406443"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-between p-5 rounded-2xl bg-white border border-black/15 hover:border-[#D4AF37] transition-all group shadow-sm"
@@ -236,8 +244,8 @@ export default function Contact() {
           </a>
 
           {/* LinkedIn */}
-          <a
-            href="https://linkedin.com/in/leonevabas"
+          
+           <a href="https://linkedin.com/in/leonevabas"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-between p-5 rounded-2xl bg-white border border-black/15 hover:border-[#D4AF37] transition-all group shadow-sm"
