@@ -145,9 +145,9 @@ export const translations = {
       success_title: "Message envoyé avec succès !",
       success_desc: "Je vous réponds sous 24h chrono.",
       name_label: "Nom / Entreprise",
-      name_placeholder: "Ex: John Doe",
+      name_placeholder: "Ex: leon evabas",
       email_label: "Email professionnel",
-      email_placeholder: "john@example.com",
+      email_placeholder: "leon@example.com",
       subject_label: "Sujet",
       subject_placeholder: "Refonte site, Application SaaS...",
       budget_label: "Budget estimé",
@@ -184,7 +184,6 @@ export const translations = {
     },
     footer: {
       description: "Designer UI/UX & Développeur web et mobile. Je conçois des interfaces sur mesure, performantes et orientées conversion.",
-      location: "Basé au Bénin",
       nav_title: "Navigation",
       social_title: "Réseaux",
       rights: "Tous droits réservés."
@@ -433,7 +432,6 @@ export const translations = {
     },
     footer: {
       description: "UI/UX Designer & Web/Mobile Developer. I build custom, high-performance, conversion-oriented interfaces.",
-      location: "Based in Benin",
       nav_title: "Navigation",
       social_title: "Socials",
       rights: "All rights reserved."

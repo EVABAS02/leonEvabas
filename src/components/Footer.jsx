@@ -32,7 +32,7 @@ export default function Footer() {
               {footerData?.description}
             </p>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/10">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+             
               <span className="text-[11px] font-mono text-white/80">{footerData?.location}</span>
             </div>
           </div>
