@@ -30,7 +30,7 @@ export const translations = {
     about: {
       tag: "À PROPOS",
       title: "Le rare profil qui pense design, code et automatisation dans le même cerveau.",
-      p1: "Diplômé en Systèmes Informatiques et Logiciels (SIL) et actuellement en formation UX Design sur OpenClassrooms, je conçois des interfaces et développe les systèmes qui les font fonctionner — de la maquette Figma jusqu'au déploiement en production.",
+      p1: "Diplômé en Systèmes Informatiques et Logiciels (SIL) et actuellement en formation UX Design sur OpenClassrooms, je conçois des interfaces et développe les systèmes qui les font fonctionner  de la maquette Figma jusqu'au déploiement en production.",
       p2: "Ce qui me différencie : je suis l'un des rares freelances à maîtriser le design UI/UX, le développement full stack (React, Next.js, Node.js, Flutter), et les écosystèmes no-code/AI. Vous parlez à une seule personne, pas à une chaîne d'intermédiaires.",
       p3: "Ma philosophie : un livrable n'est bon que s'il est utilisé. Je construis des produits qui répondent à de vrais problèmes métier, avec une attention aux détails qui se voient et à l'architecture qui ne se voit pas.",
       cta: "Voir mon CV"
