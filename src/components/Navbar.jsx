@@ -10,10 +10,7 @@ export default function Navbar() {
   const navLinks = [
     { name: t('nav', 'home'), href: '#accueil', keyName: 'accueil' },
     { name: t('nav', 'about'), href: '#a-propos', keyName: 'a-propos' },
-    { name: t('nav', 'skills'), href: '#competences', keyName: 'competences' },
-    { name: t('nav', 'services'), href: '#services', keyName: 'services' },
     { name: t('nav', 'portfolio'), href: '#portfolio', keyName: 'portfolio' },
-    { name: t('nav', 'faq'), href: '#faq', keyName: 'faq' },
   ];
 
   return (
