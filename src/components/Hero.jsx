@@ -34,7 +34,7 @@ export default function Hero() {
           {/* BOUTONS D'ACTION */}
           <div className="flex flex-wrap items-center gap-4 mb-12">
             
-            {/* BOUTON 1 : COMMENÇONS UN PROJET (TEAL) */}
+            {/* BOUTON 1 : COMMENÇONS UN PROJET (TEAL / FOND VERT PLEIN) */}
             <a
               href="#services"
               className="group flex items-center gap-2 bg-teal hover:bg-teal-hover text-white font-mono text-xs md:text-sm font-semibold uppercase tracking-wider px-7 py-3.5 rounded-full transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
@@ -43,10 +43,10 @@ export default function Hero() {
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </a>
 
-            {/* BOUTON 2 : ME CONTACTER (GOLD AVEC FLÈCHE À DROITE) */}
+            {/* BOUTON 2 : ME CONTACTER (FOND TRANSPARENT, CONTOUR ET TEXTE DORÉ) */}
             <a
               href="#contact"
-              className="group flex items-center gap-2 bg-gold hover:bg-gold/90 text-charcoal font-mono text-xs md:text-sm font-semibold uppercase tracking-wider px-7 py-3.5 rounded-full transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+              className="group flex items-center gap-2 bg-transparent border-2 border-gold hover:bg-gold/10 text-gold-dark font-mono text-xs md:text-sm font-semibold uppercase tracking-wider px-7 py-3.5 rounded-full transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
             >
               <span>{heroData?.btn_contact}</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
