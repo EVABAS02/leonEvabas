@@ -26,93 +26,104 @@ export default function Portfolio() {
     return () => unsubscribe();
   }, []);
 
-  const marqueeProjects = projects.length > 0 ? [...projects, ...projects, ...projects] : [];
-
   return (
-    <section id="portfolio" className="w-full bg-white text-black py-28 overflow-hidden font-sans">
-      <div className="max-w-7xl mx-auto px-4 md:px-12 lg:px-20 space-y-4 mb-12">
-        
-        {/* EN-TÊTE DE SECTION (Centré) */}
-        <div className="flex flex-col items-center text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1">
-            <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#D4AF37] uppercase">
-              {portfolioData?.tag}
-            </span>
-          </div>
+    <section id="portfolio" className="w-full bg-white text-black py-28 font-sans">
+      <div className="max-w-7xl mx-auto px x-4 md:px-12 lg:px-20">
 
+        {/* EN-TÊTE */}
+        <div className="flex flex-col items-center text-center space-y-4 mb-16">
+          <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#D4AF37] uppercase">
+            {portfolioData?.tag}
+          </span>
           <h2 className="text-3xl md:text-5xl font-black font-serif tracking-tight text-black max-w-3xl leading-tight">
             {portfolioData?.title}
           </h2>
         </div>
 
-      </div>
+        {/* ÉTAT CHARGEMENT */}
+        {loading && (
+          <p className="text-center text-black/40 font-mono text-sm">
+            Chargement...
+          </p>
+        )}
 
-      {/* ÉTAT VIDE : aucun projet publié dans Firestore pour l'instant */}
-      {!loading && projects.length === 0 && (
-        <p className="text-center text-black/40 font-mono text-sm">
-          Aucun projet publié pour l'instant.
-        </p>
-      )}
+        {/* ÉTAT VIDE */}
+        {!loading && projects.length === 0 && (
+          <p className="text-center text-black/40 font-mono text-sm">
+            Aucun projet publié pour l'instant.
+          </p>
+        )}
 
-      {/* CONTENEUR DU CARROUSEL INFINI (MARQUEE) */}
-      {projects.length > 0 && (
-        <div className="relative w-full flex overflow-x-hidden group">
-          
-          <div className="flex gap-8 py-4 animate-marquee whitespace-nowrap group-hover:[animation-play-state:paused]">
-            {marqueeProjects.map((project, index) => (
-              <div 
-                key={`${project.id}-${index}`}
-                className="w-[320px] md:w-[380px] flex-shrink-0 bg-white border border-black/15 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group/card"
+        {/* GRILLE PROJETS */}
+        {!loading && projects.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project) => (
+              <div
+                key={project.id}
+                className="bg-white border border-black/15 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group/card"
               >
-                {/* Image miniature du projet */}
-                <div className="relative w-full h-[180px] rounded-xl overflow-hidden bg-black mb-4 border border-black/10">
-                  <img 
-                    src={project.image} 
+                {/* Image */}
+                <div className="relative w-full h-[200px] rounded-xl overflow-hidden bg-black mb-4 border border-black/10">
+                  <img
+                    src={project.image}
                     alt={project.name}
                     className="w-full h-full object-cover object-top transform group-hover/card:scale-105 transition-transform duration-500"
-                    onError={(e)=>{e.target.src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80"}}
+                    onError={(e) => {
+                      e.target.src = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80";
+                    }}
                   />
                 </div>
 
-                {/* Infos textuelles compactes */}
-                <div className="space-y-3">
+                {/* Infos */}
+                <div className="space-y-3 flex-1">
                   <h3 className="text-xl font-black font-serif tracking-tight text-black">
                     {project.name}
                   </h3>
-                  <p className="text-xs text-black/70 font-sans truncate">
+                  <p className="text-xs text-black/70 font-sans">
                     {project.category}
                   </p>
+
+                  {/* Délai si disponible */}
+                  {project.duration && (
+                    <p className="text-xs text-[#D4AF37] font-mono font-bold">
+                      ⏱ Livré en {project.duration}
+                    </p>
+                  )}
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-1.5 pt-1">
                     {(project.tags || []).map((tag, tIdx) => (
-                      <span key={tIdx} className="px-2 py-0.5 rounded text-[10px] font-mono bg-black/[0.03] text-black border border-black/10">
+                      <span
+                        key={tIdx}
+                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-black/[0.03] text-black border border-black/10"
+                      >
                         {tag}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                {/* Lien d'action direct */}
-                <div className="pt-4 mt-4 border-t border-black/10 flex items-center justify-between">
-                  <a 
-                    href={project.link} 
-                    target="_blank" 
+                {/* Lien */}
+                <div className="pt-4 mt-4 border-t border-black/10">
+                  <a
+                    href={project.link}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-xs font-mono font-bold tracking-wider uppercase text-black hover:text-[#D4AF37] transition-colors"
                   >
                     <span>{portfolioData?.view_project}</span>
                     <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                      <line x1="5" y1="12" x2="19" y2="12"/>
+                      <polyline points="12 5 19 12 12 19"/>
                     </svg>
                   </a>
                 </div>
               </div>
             ))}
           </div>
+        )}
 
-        </div>
-      )}
+      </div>
     </section>
   );
 }
