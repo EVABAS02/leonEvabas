@@ -14,18 +14,18 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-black/5 px-4 md:px-12 py-3.5 transition-all">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-black/5 px-4 md:px-12 py-4 transition-all">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         
-        {/* LOGO */}
-        <a href="#accueil" className="flex items-center text-lg md:text-xl font-bold tracking-tight text-black group">
+        {/* LOGO (Agrandis) */}
+        <a href="#accueil" className="flex items-center text-xl md:text-2xl font-bold tracking-tight text-black group">
           <span>Léon</span>
           <span className="mx-1.5 text-gold font-serif text-sm transition-transform group-hover:scale-125"></span>
-          <span className="font-extrabold uppercase tracking-wider text-lg md:text-xl">EVABAS</span>
+          <span className="font-extrabold uppercase tracking-wider text-xl md:text-2xl">EVABAS</span>
         </a>
 
         {/* NAVIGATION DESKTOP */}
-        <nav className="hidden lg:flex items-center gap-1 font-mono text-[11px] font-semibold tracking-wider border border-black/10 rounded-full px-3 py-1.5 bg-white/60 shadow-[0_2px_8px_rgba(0,0,0,0.04)] backdrop-blur-sm">
+        <nav className="hidden lg:flex items-center gap-2 font-mono text-sm font-semibold tracking-wider border border-black/10 rounded-full px-4 py-2 bg-white/60 shadow-[0_2px_8px_rgba(0,0,0,0.04)] backdrop-blur-sm">
           {navLinks.map((link) => {
             const isActive = activeLink === link.keyName;
             return (
@@ -33,7 +33,7 @@ export default function Navbar() {
                 key={link.keyName}
                 href={link.href}
                 onClick={() => setActiveLink(link.keyName)}
-                className={`transition-all duration-200 px-3.5 py-1.5 rounded-full ${
+                className={`transition-all duration-200 px-5 py-2.5 rounded-full ${
                   isActive
                     ? 'bg-gold text-white font-bold shadow-sm'
                     : 'text-black hover:bg-black/5 hover:text-black'
@@ -45,13 +45,13 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* ACTIONS DROITE (LANGUE + CTA) */}
-        <div className="hidden md:flex items-center gap-3">
-          {/* TOGGLE LANGUE */}
-          <div className="flex items-center border border-black/10 rounded-full p-0.5 bg-white/60 shadow-sm font-mono text-[11px]">
+        {/* ACTIONS DROITE (LANGUE + CTA AGRANDIS) */}
+        <div className="hidden md:flex items-center gap-3.5">
+          {/* TOGGLE LANGUE (Agrandis) */}
+          <div className="flex items-center border border-black/10 rounded-full p-0.5 bg-white/60 shadow-sm font-mono text-sm">
             <button
               onClick={() => setLang('fr')}
-              className={`px-3 py-1 rounded-full transition-all duration-200 ${
+              className={`px-4 py-2 rounded-full transition-all duration-200 ${
                 lang === 'fr'
                   ? 'bg-gold-dark text-white font-bold shadow-sm'
                   : 'text-black hover:text-black/70'
@@ -61,7 +61,7 @@ export default function Navbar() {
             </button>
             <button
               onClick={() => setLang('en')}
-              className={`px-3 py-1 rounded-full transition-all duration-200 ${
+              className={`px-4 py-2 rounded-full transition-all duration-200 ${
                 lang === 'en'
                   ? 'bg-gold-dark text-white font-bold shadow-sm'
                   : 'text-black hover:text-black/70'
@@ -71,28 +71,28 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* BOUTON CTA */}
+          {/* BOUTON CTA (Agrandis) */}
           <a
             href="#contact"
-            className="group flex items-center gap-2 bg-teal hover:bg-teal-hover text-white font-mono text-xs uppercase font-semibold px-5 py-2.5 rounded-full transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
+            className="group flex items-center gap-2 bg-teal hover:bg-teal-hover text-white font-mono text-sm uppercase font-semibold px-6 py-3 rounded-full transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
           >
             <span>{t('nav', 'lets_talk')}</span>
-            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </a>
         </div>
 
         {/* MENU MOBILE TOGGLE */}
         <div className="flex items-center gap-2 lg:hidden">
-          <div className="flex items-center border border-black/10 rounded-full p-0.5 bg-white/60 font-mono text-[10px] mr-1">
+          <div className="flex items-center border border-black/10 rounded-full p-0.5 bg-white/60 font-mono text-xs mr-1">
             <button
               onClick={() => setLang('fr')}
-              className={`px-2 py-0.5 rounded-full ${lang === 'fr' ? 'bg-gold-dark text-white font-bold' : 'text-black'}`}
+              className={`px-3 py-1 rounded-full ${lang === 'fr' ? 'bg-gold-dark text-white font-bold' : 'text-black'}`}
             >
               FR
             </button>
             <button
               onClick={() => setLang('en')}
-              className={`px-2 py-0.5 rounded-full ${lang === 'en' ? 'bg-gold-dark text-white font-bold' : 'text-black'}`}
+              className={`px-3 py-1 rounded-full ${lang === 'en' ? 'bg-gold-dark text-white font-bold' : 'text-black'}`}
             >
               EN
             </button>
@@ -103,7 +103,7 @@ export default function Navbar() {
             className="p-2 text-black hover:bg-black/5 rounded-full transition-colors focus:outline-none"
             aria-label="Toggle menu"
           >
-            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
@@ -111,7 +111,7 @@ export default function Navbar() {
       {/* MENU MOBILE DROPDOWN */}
       {isOpen && (
         <div className="lg:hidden mt-3 pt-3 pb-2 border-t border-black/5 bg-white/95 rounded-2xl p-4 shadow-xl">
-          <div className="flex flex-col gap-2 font-mono text-xs">
+          <div className="flex flex-col gap-2 font-mono text-base">
             {navLinks.map((link) => (
               <a
                 key={link.keyName}
@@ -120,7 +120,7 @@ export default function Navbar() {
                   setActiveLink(link.keyName);
                   setIsOpen(false);
                 }}
-                className={`px-4 py-2.5 rounded-xl transition-all ${
+                className={`px-4 py-3 rounded-xl transition-all ${
                   activeLink === link.keyName
                     ? 'bg-gold text-white font-bold'
                     : 'text-black hover:bg-black/5'
@@ -132,10 +132,10 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={() => setIsOpen(false)}
-              className="flex items-center justify-center gap-2 bg-teal text-white font-mono text-xs uppercase font-semibold px-5 py-3 rounded-full mt-2 shadow-sm"
+              className="flex items-center justify-center gap-2 bg-teal text-white font-mono text-sm uppercase font-semibold px-6 py-3.5 rounded-full mt-2 shadow-sm"
             >
               <span>{t('nav', 'lets_talk')}</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4.5 h-4.5" />
             </a>
           </div>
         </div>
