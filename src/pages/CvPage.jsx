@@ -116,7 +116,7 @@ export default function CvPage({ onBack }) {
             
             <div className="w-28 h-28 md:w-32 md:h-32 rounded-2xl overflow-hidden border-2 border-teal/30 shadow-md bg-[#F9F9F8] flex-shrink-0">
               <img 
-                src="" 
+                src="/images/photo léon .webp" 
                 alt="Léon AZON" 
                 className="w-full h-full object-cover"
                 onError={(e) => {

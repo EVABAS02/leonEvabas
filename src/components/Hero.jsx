@@ -84,17 +84,29 @@ export default function Hero() {
           {/* HALO LUMINEUX */}
           <div className="absolute w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] rounded-full bg-gradient-to-tr from-teal/15 via-gold/15 to-transparent blur-3xl -z-10"></div>
 
-          {/* CONTENEUR DE LA PHOTO */}
+          {/* CONTENEUR PHOTO */}
           <div className="relative z-0 w-full max-w-[280px] sm:max-w-[380px]">
 
             <div className="relative">
+
+              {/* PHOTO DESKTOP — cachée sur mobile */}
               <img
                 src="/images/leon.webp"
                 alt="Léon EVABAS - Designer & Développeur"
                 width="380"
                 height="475"
-                className="w-full h-auto object-contain select-none"
+                className="hidden lg:block w-full h-auto object-contain select-none"
               />
+
+              {/* PHOTO MOBILE — cachée sur desktop */}
+              <img
+                src="/images/photo léon  (1).webp"
+                alt="Léon EVABAS - Designer & Développeur"
+                width="380"
+                height="475"
+                className="block lg:hidden w-full h-auto object-contain select-none"
+              />
+
               <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
             </div>
 
