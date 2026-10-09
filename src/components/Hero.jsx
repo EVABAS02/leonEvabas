@@ -106,7 +106,7 @@ export default function Hero() {
                 height="475"
                 className="block lg:hidden w-full h-auto object-contain select-none"
               />
-
+  
               <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
             </div>
 
@@ -141,4 +141,4 @@ export default function Hero() {
       </div>
     </section>
   );
-}
+}  

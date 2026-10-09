@@ -3,6 +3,21 @@ import { useLanguage } from '../context/LanguageContext';
 import { db } from '../firebase-admin';
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 
+const IMG_EXT = /\.(png|jpe?g|webp|gif|svg|avif)(\?.*)?$/i;
+const FALLBACK_IMG = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80";
+
+// Chemin local ou URL d'image directe -> tel quel (comportement d'avant).
+// URL de site (sans extension d'image) ou champ vide -> capture auto du site.
+function resolveImage(project) {
+  const img = (project.image || '').trim();
+  const link = (project.link || '').trim();
+  const isSiteUrl = /^https?:\/\//i.test(img) && !IMG_EXT.test(img);
+  if (img && !isSiteUrl) return img;
+  const site = isSiteUrl ? img : link;
+  if (!/^https?:\/\//i.test(site)) return FALLBACK_IMG;
+  return `https://image.thum.io/get/width/800/crop/600/${site}`;
+}
+
 export default function Portfolio() {
   const { tObj } = useLanguage();
   const portfolioData = tObj('portfolio');
@@ -28,7 +43,7 @@ export default function Portfolio() {
 
   return (
     <section id="portfolio" className="w-full bg-white text-black py-28 font-sans">
-      <div className="max-w-7xl mx-auto px x-4 md:px-12 lg:px-20">
+      <div className="max-w-7xl mx-auto px-4 md:px-12 lg:px-20">
 
         {/* EN-TÊTE */}
         <div className="flex flex-col items-center text-center space-y-4 mb-16">
@@ -65,11 +80,13 @@ export default function Portfolio() {
                 {/* Image */}
                 <div className="relative w-full h-[200px] rounded-xl overflow-hidden bg-black mb-4 border border-black/10">
                   <img
-                    src={project.image}
+                    src={resolveImage(project)}
                     alt={project.name}
+                    loading="lazy"
                     className="w-full h-full object-cover object-top transform group-hover/card:scale-105 transition-transform duration-500"
                     onError={(e) => {
-                      e.target.src = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80";
+                      e.currentTarget.onerror = null; // évite une boucle infinie
+                      e.currentTarget.src = FALLBACK_IMG;
                     }}
                   />
                 </div>

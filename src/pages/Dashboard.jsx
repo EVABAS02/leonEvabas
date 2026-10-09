@@ -412,7 +412,7 @@ function ProjectForm({ initial, onSubmit, onCancel, submitLabel }) {
         <Input label="Catégorie" value={form.category} onChange={handleChange('category')} placeholder="Site vitrine • Refonte UI/UX" required />
         <Input label="Tags (séparés par virgule)" value={form.tags} onChange={handleChange('tags')} placeholder="React, Supabase, SaaS" />
         <Input label="Stack technique" value={form.stack} onChange={handleChange('stack')} placeholder="React, Tailwind, Supabase" />
-        <Input label="URL image" value={form.image} onChange={handleChange('image')} placeholder="/images/mon-projet.png" />
+        <Input label="Image (chemin /images/x.webp ou URL d'image — vide = capture auto du lien)" value={form.image} onChange={handleChange('image')} placeholder="/images/mon-projet.webp" />
         <Input label="Lien du projet" value={form.link} onChange={handleChange('link')} placeholder="https://..." />
         <Input label="Badge (CV)" value={form.badge} onChange={handleChange('badge')} placeholder="Full-Stack / Frontend" />
       </div>

@@ -63,7 +63,7 @@ export default function About() {
           <button
             type="button"
             onClick={() => navigate('/cv')}
-            className="group inline-flex items-center gap-3 border-2 border-black text-black hover:bg-black hover:text-white font-mono text-xs md:text-sm font-semibold uppercase tracking-wider px-8 py-4 rounded-full transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+            className="group inline-flex items-center gap-2 bg-teal hover:bg-teal-hover text-white font-mono text-xs md:text-sm font-semibold uppercase tracking-wider px-8 py-4 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
           >
             <span>{aboutData?.cta}</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

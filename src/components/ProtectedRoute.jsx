@@ -19,3 +19,5 @@ export default function ProtectedRoute({ children }) {
 
   return children;
 }
+
+<img src="/leon-web/public/images/projet leon.webp" alt="" />
