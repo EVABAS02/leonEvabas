@@ -10,10 +10,8 @@ export const translations = {
       lets_talk: "DISCUTONS"
     },
     hero: {
-      tag: "Vos concurrents ont un site",
-      title: "Vous, vous aurez un site qui vend et convainc",
-      title_highlight: "24h/24",
-      description: "Interfaces claires, code robuste, automatisations qui font gagner du temps réel à votre entreprise.",
+     headline_start : "Du premier pixel au déploiement", // <-- Ajoutez la virgule ici
+     headline_end   : "je conçois et livre des applications web robustes à une vitesse fulgurante",
       btn_project: "Commençons un projet",
       btn_contact: "Me contacter",
       stats: {
@@ -258,10 +256,8 @@ export const translations = {
       lets_talk: "LET'S TALK"
     },
     hero: {
-      tag: "Your competitors have a website",
-      title: "You will have a website that sells and converts",
-      title_highlight: "24/7",
-      description: "Clear interfaces, robust code, and automations that save your business real time.",
+   headline_start : "From first pixel to deployment,", // <-- La virgule doit être après les guillemets
+headline_end   : "I design and ship robust web applications at lightning speed",
       btn_project: "Let's start a project",
       btn_contact: "Contact me",
       stats: {

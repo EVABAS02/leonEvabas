@@ -18,11 +18,9 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         
         {/* LOGO (Agrandis) */}
-        <a href="#accueil" className="flex items-center text-xl md:text-2xl font-bold tracking-tight text-black group">
-          <span>Léon</span>
-          <span className="mx-1.5 text-gold font-serif text-sm transition-transform group-hover:scale-125"></span>
-          <span className="font-extrabold uppercase tracking-wider text-xl md:text-2xl">EVABAS</span>
-        </a>
+        <a href="#accueil" aria-label="Léon EVABAS, retour à l'accueil" className="flex items-center">
+  <img src="/images/tech logo .webp" alt="Léon EVABAS" width="160" height="40" className="h-10 w-auto" />
+            </a>
 
         {/* NAVIGATION DESKTOP */}
         <nav className="hidden lg:flex items-center gap-2 font-mono text-sm font-semibold tracking-wider border border-black/10 rounded-full px-4 py-2 bg-white/60 shadow-[0_2px_8px_rgba(0,0,0,0.04)] backdrop-blur-sm">
