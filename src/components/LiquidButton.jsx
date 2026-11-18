@@ -17,9 +17,9 @@ const INK = '#111111';
 const WHITE = '#FFFFFF';
 
 /*
-  primary : fond teal plein. Au survol, le liquide doré remplit le bouton
-            et le texte passe en noir (contraste correct sur le doré).
-  outline : fond transparent, contour doré. Au survol, le liquide teal
+  primary : fond teal plein. Au survol, le liquide DORÉ remplit le bouton
+            et le texte passe en noir.
+  outline : fond transparent, contour doré. Au survol, le liquide NOIR
             remplit le bouton et le texte passe en blanc.
 */
 const VARIANTS = {
@@ -31,7 +31,7 @@ const VARIANTS = {
     backgroundColor: TEAL,
   },
   outline: {
-    '--liquid-fill': TEAL,
+    '--liquid-fill': INK,
     '--liquid-text': INK,
     '--liquid-active-text': WHITE,
     '--liquid-border': GOLD,
